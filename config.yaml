@@ -5,3 +5,4 @@ statuses:
 enabled-cogs:
   - fun
   - presence
+  - console

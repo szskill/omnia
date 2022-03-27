@@ -1,3 +1,4 @@
 disnake
 pyyaml
 python-dotenv
+rich
