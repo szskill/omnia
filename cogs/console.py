@@ -20,6 +20,6 @@ class Console(commands.Cog):
     async def on_ready(self) -> None:
         rich.print(
             "[b]🤖 Omnia is ready![/b]\n"
-            + f"| [gray]Version:[/gray] [aqua]{self.bot.version}[/aqua]\n"
-            + f"| [gray]Prefix:[/gray] [aqua]{self.bot.command_prefix}[/aqua]"
+            + f"| [gray50]Version:[/gray50] [aqua]{self.bot.version}[/aqua]\n"
+            + f"| [gray50]Prefix:[/gray50] [aqua]{self.bot.command_prefix}[/aqua]"
         )
