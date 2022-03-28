@@ -36,9 +36,9 @@ class Omnia(commands.Bot):
     def _register_extensions(self) -> None:
         """Registers all extensions from `self.enabled_extensions`."""
 
-        for extension in listdir("extensions"):
+        for extension in listdir("omnia/extensions"):
             if extension.endswith(".py"):
-                self.load_extension(f"extensions.{extension.removesuffix('.py')}")
+                self.load_extension(f"omnia.extensions.{extension.removesuffix('.py')}")
 
     def _connect_to_databases(self) -> None:
         """Connects to the required databases."""
