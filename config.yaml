@@ -7,3 +7,4 @@ enabled-extensions:
   - presence
   - console
   - moderation
+redis-port: 6379

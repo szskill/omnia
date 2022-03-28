@@ -2,3 +2,4 @@ disnake
 pyyaml
 python-dotenv
 rich
+aioredis
