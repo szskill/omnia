@@ -10,7 +10,11 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def kick(
-        self, ctx: commands.Context, member: disnake.Member, *, reason: str = "None"
+        self,
+        ctx: commands.Context,
+        member: disnake.Member,
+        *,
+        reason: str = "no reason",
     ) -> None:
         """Kicks a member from a server."""
 
@@ -24,7 +28,11 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def ban(
-        self, ctx: commands.Context, member: disnake.Member, *, reason: str = "None"
+        self,
+        ctx: commands.Context,
+        member: disnake.Member,
+        *,
+        reason: str = "no reason",
     ) -> None:
         """Bans a member from a server."""
 
