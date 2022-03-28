@@ -1,7 +1,7 @@
+from os import listdir
+
 import yaml
 from disnake.ext import commands
-
-import cogs
 
 
 class Omnia(commands.Bot):
@@ -12,10 +12,10 @@ class Omnia(commands.Bot):
 
         self.version = ""
         self.statuses = []
-        self.enabled_cogs = []
+        self.enabled_extensions = []
 
         self._read_from_config_file()
-        self._register_cogs()
+        self._register_extensions()
 
     def _read_from_config_file(self, file: str = "config.yaml") -> None:
         """Reads configuration from a `config.yaml` file."""
@@ -26,18 +26,11 @@ class Omnia(commands.Bot):
             self.command_prefix = config["prefix"]
             self.version = config["version"]
             self.statuses = config["statuses"]
-            self.enabled_cogs = config["enabled-cogs"]
+            self.enabled_extensions = config["enabled-extensions"]
 
-    def _register_cogs(self) -> None:
-        """Registers all cogs from `self.enabled_cogs`."""
+    def _register_extensions(self) -> None:
+        """Registers all extensions from `self.enabled_extensions`."""
 
-        for Cog in cogs.all_cogs:
-            if Cog.__cog_name__.lower() in self.enabled_cogs:
-                if hasattr(Cog, "INIT_EXTRA_ARGS"):
-                    args = []
-                    for extra_arg in Cog.INIT_EXTRA_ARGS:
-                        if extra_arg == "bot":
-                            args.append(self)
-                    self.add_cog(Cog(*args))
-                else:
-                    self.add_cog(Cog())
+        for extension in listdir("extensions"):
+            if extension.endswith(".py"):
+                self.load_extension(f"extensions.{extension.removesuffix('.py')}")

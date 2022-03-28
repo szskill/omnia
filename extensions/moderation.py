@@ -43,3 +43,8 @@ class Moderation(commands.Cog):
 
         await member.ban(reason=reason)
         await ctx.reply(f"Banned `{member}` for `{reason}`")
+
+
+def setup(bot: commands.Bot) -> None:
+    """Loads the `Moderation` cog."""
+    bot.add_cog(Moderation())

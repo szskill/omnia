@@ -22,3 +22,8 @@ class Presence(commands.Cog):
             activity=disnake.Game(self.bot.statuses[0]),
             status=disnake.Status.do_not_disturb,
         )
+
+
+def setup(bot: commands.Bot) -> None:
+    """Loads the `Presence` cog."""
+    bot.add_cog(Presence(bot))

@@ -23,3 +23,8 @@ class Console(commands.Cog):
             + f"| [gray50]Version:[/gray50] [aqua]{self.bot.version}[/aqua]\n"
             + f"| [gray50]Prefix:[/gray50] [aqua]{self.bot.command_prefix}[/aqua]"
         )
+
+
+def setup(bot: commands.Bot) -> None:
+    """Loads the `Console` cog."""
+    bot.add_cog(Console(bot))

@@ -2,7 +2,7 @@ prefix: "%"
 version: 0.0.1
 statuses:
   - "%help"
-enabled-cogs:
+enabled-extensions:
   - fun
   - presence
   - console
