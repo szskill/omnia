@@ -9,6 +9,8 @@ class Moderation(commands.Cog):
         super().__init__()
 
     @commands.command()
+    @commands.has_permissions(kick_members=True)
+    @commands.bot_has_permissions(kick_members=True)
     async def kick(
         self,
         ctx: commands.Context,
@@ -38,6 +40,8 @@ class Moderation(commands.Cog):
         )
 
     @commands.command()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True)
     async def ban(
         self,
         ctx: commands.Context,
