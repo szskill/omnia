@@ -41,6 +41,14 @@ class ErrorHandling(commands.Cog):
             )
             await self.bot.redis_db.incr(f"omnia.command_errors.{ctx.command.name}")
 
+            await ctx.reply(
+                embed=disnake.Embed(
+                    title="Unknown Error",
+                    description=f"```\n{error}\n```",
+                    color=disnake.Color.brand_red(),
+                )
+            )
+
 
 def setup(bot: commands.Bot) -> None:
     """Loads the `ErrorHandling` cog."""
