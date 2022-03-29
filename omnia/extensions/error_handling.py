@@ -31,9 +31,9 @@ class ErrorHandling(commands.Cog):
             logging.warn(
                 f"Unhandled error {error.__class__} on command {ctx.command.name}"
             )
-            self.bot.redis_db.incr(f"omnia.command_errors.{ctx.command.name}")
+            await self.bot.redis_db.incr(f"omnia.command_errors.{ctx.command.name}")
 
 
 def setup(bot: commands.Bot) -> None:
     """Loads the `ErrorHandling` cog."""
-    bot.add_cog(ErrorHandling())
+    bot.add_cog(ErrorHandling(bot))
