@@ -1,3 +1,5 @@
+import logging
+
 import disnake
 from disnake.ext import commands
 
@@ -19,6 +21,10 @@ class ErrorHandling(commands.Cog):
                     description="You do not have permission to perform this command.",
                     color=disnake.Color.brand_red(),
                 )
+            )
+        else:
+            logging.warn(
+                f"Unhandled error {error.__class__} on command {ctx.command.name}"
             )
 
 
