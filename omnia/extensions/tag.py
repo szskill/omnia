@@ -16,9 +16,14 @@ class Tag(commands.Cog):
     async def create_tag(self, ctx: commands.Context, name: str, *, text: str) -> None:
         """Creates a tag only for this server."""
 
-        await self.bot.redis_db.set(
-            f"{self.bot.redis_keyspace}.guild.{ctx.guild.id}.tags.{name}", text
-        )
+        tag_key = f"{self.bot.redis_keyspace}.guild.{ctx.guild.id}.tags.{name}"
+
+        if tag_key in await self.bot.redis_db.keys():
+            return await ctx.reply(
+                f"A tag with the name `{name}` already exists in this server."
+            )
+
+        await self.bot.redis_db.set(tag_key, text)
 
         await ctx.reply(
             embed=disnake.Embed(
