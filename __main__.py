@@ -1,3 +1,5 @@
+"""Entrypoint for Omnia."""
+
 from os import getenv
 from dotenv import load_dotenv
 from omnia.omnia import Omnia
