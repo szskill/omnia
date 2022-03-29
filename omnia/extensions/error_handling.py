@@ -22,6 +22,8 @@ class ErrorHandling(commands.Cog):
                     color=disnake.Color.brand_red(),
                 )
             )
+        elif isinstance(error, commands.CommandNotFound):
+            return
         else:
             logging.warn(
                 f"Unhandled error {error.__class__} on command {ctx.command.name}"
