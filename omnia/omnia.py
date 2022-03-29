@@ -31,7 +31,7 @@ class Omnia(commands.Bot):
         with open(file) as file:
             config = yaml.load(file, yaml.FullLoader)
 
-            self.command_prefix = commands.when_mentioned_or(config["prefix"])
+            self.command_prefix = config["prefix"]
             self.version = config["version"]
             self.statuses = config["statuses"]
             self.enabled_extensions = config["enabled-extensions"]
