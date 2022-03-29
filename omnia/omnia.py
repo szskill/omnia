@@ -17,6 +17,7 @@ class Omnia(commands.Bot):
         self.redis_port = 0
 
         self.redis_db: aioredis.Redis = None
+        self.redis_keyspace: str = "omnia"
 
         self._read_from_config_file()
         self._register_extensions()

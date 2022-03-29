@@ -39,7 +39,9 @@ class ErrorHandling(commands.Cog):
             logging.warn(
                 f"Unhandled error {error.__class__} on command {ctx.command.name}"
             )
-            await self.bot.redis_db.incr(f"omnia.command_errors.{ctx.command.name}")
+            await self.bot.redis_db.incr(
+                f"{self.bot.redis_keyspace}.command_errors.{ctx.command.name}"
+            )
 
             await ctx.reply(
                 embed=disnake.Embed(
