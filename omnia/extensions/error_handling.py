@@ -25,6 +25,14 @@ class ErrorHandling(commands.Cog):
                     color=disnake.Color.brand_red(),
                 )
             )
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.reply(
+                embed=disnake.Embed(
+                    title="Missing Required Argument",
+                    description=f"You are missing the `{error.param.name}` argument",
+                    color=disnake.Color.brand_red(),
+                )
+            )
         elif isinstance(error, commands.CommandNotFound):
             return
         else:
