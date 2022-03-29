@@ -1,18 +1,13 @@
 import disnake
 from disnake.ext import commands
 
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from omnia import Omnia
+from omnia.omnia import Omnia
 
 
 class Presence(commands.Cog):
     """The cog that sets up rich presence."""
 
-    INIT_EXTRA_ARGS = ("bot",)
-
-    def __init__(self, bot: "Omnia") -> None:
+    def __init__(self, bot: Omnia) -> None:
         super().__init__()
         self.bot = bot
 
