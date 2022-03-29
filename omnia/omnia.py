@@ -43,4 +43,4 @@ class Omnia(commands.Bot):
 
     def _connect_to_databases(self) -> None:
         """Connects to the required databases."""
-        self.redis_db = aioredis.Redis(port=self.redis_port)
+        self.redis_db = aioredis.Redis(port=self.redis_port, decode_responses=True)
