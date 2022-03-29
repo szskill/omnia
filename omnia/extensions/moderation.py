@@ -57,7 +57,7 @@ class Moderation(commands.Cog):
             return await ctx.reply(
                 embed=disnake.Embed(
                     title="🤨 Why?",
-                    description="do you got a problem with me?!",
+                    description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
                 )
             )
