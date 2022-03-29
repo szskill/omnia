@@ -11,6 +11,8 @@ class Omnia(commands.Bot):
     def __init__(self) -> None:
         super().__init__()
 
+        self.case_insensitive = True
+
         self.version = ""
         self.statuses = []
         self.enabled_extensions = []
