@@ -16,7 +16,7 @@ class Tag(commands.Cog):
     async def create_tag(self, ctx: commands.Context, name: str, *, text: str) -> None:
         """Creates a tag only for this server."""
 
-        tag_key = f"{self.bot.redis_keyspace}.guild.{ctx.guild.id}.tags.{name}"
+        tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
 
         if tag_key in await self.bot.redis_db.keys():
             return await ctx.reply(
@@ -38,7 +38,7 @@ class Tag(commands.Cog):
         """Shows you a tag."""
 
         text = await self.bot.redis_db.get(
-            f"{self.bot.redis_keyspace}.guild.{ctx.guild.id}.tags.{name}"
+            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
         )
 
         if not text:
@@ -54,7 +54,7 @@ class Tag(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def delete_tag(self, ctx: commands.Context, name: str) -> None:
         await self.bot.redis_db.delete(
-            f"{self.bot.redis_keyspace}.guild.{ctx.guild.id}.tags.{name}"
+            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
         )
 
         await ctx.reply(
