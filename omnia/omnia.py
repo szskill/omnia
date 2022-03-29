@@ -20,6 +20,7 @@ class Omnia(commands.Bot):
 
         self._read_from_config_file()
         self._register_extensions()
+        self._connect_to_databases()
 
     def _read_from_config_file(self, file: str = "config.yaml") -> None:
         """Reads configuration from a `config.yaml` file."""
