@@ -50,6 +50,21 @@ class Tag(commands.Cog):
             )
         )
 
+    @commands.command(name="delete-tag")
+    @commands.has_permissions(manage_messages=True)
+    async def delete_tag(self, ctx: commands.Context, name: str) -> None:
+        await self.bot.redis_db.delete(
+            f"{self.bot.redis_keyspace}.guild.{ctx.guild.id}.tags.{name}"
+        )
+
+        await ctx.reply(
+            embed=disnake.Embed(
+                title=f"Deleted Tag `{name}`",
+                description="Goodbye, tag!",
+                color=disnake.Color.brand_green(),
+            )
+        )
+
 
 def setup(bot: commands.Bot) -> None:
     """Loads the `Tag` cog."""
