@@ -50,6 +50,35 @@ class Tag(commands.Cog):
             )
         )
 
+    @tag.command("list")
+    async def list_(self, ctx: commands.Context) -> None:
+        tag_names = [
+            key[37:]
+            for key in await self.bot.redis_db.keys(
+                f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.*"
+            )
+        ]
+
+        if not tag_names:
+            return await ctx.reply(
+                embed=disnake.Embed(
+                    title="This server has no tags",
+                    description=(
+                        f"Change that by doing `{ctx.clean_prefix}tag create <name>"
+                        + " <text>`"
+                    ),
+                    color=disnake.Color.brand_red(),
+                )
+            )
+
+        await ctx.reply(
+            embed=disnake.Embed(
+                title=f"Tags for `{ctx.guild}`",
+                description=", ".join(tag_names),
+                color=disnake.Color.random(),
+            )
+        )
+
     @tag.command()
     @commands.has_permissions(manage_messages=True)
     async def delete(self, ctx: commands.Context, name: str) -> None:
