@@ -11,9 +11,26 @@ class Tag(commands.Cog):
         super().__init__()
         self.bot = bot
 
-    @commands.command(name="create-tag")
+    @commands.group(invoke_without_command=True)
+    async def tag(self, ctx: commands.Context, name: str) -> None:
+        """Shows you a tag."""
+
+        text = await self.bot.redis_db.get(
+            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
+        )
+
+        if not text:
+            return await ctx.reply(f"The tag with name `{name}` does not exist.")
+
+        await ctx.reply(
+            embed=disnake.Embed(
+                title=f"Tag `{name}`", description=text, color=disnake.Color.random()
+            )
+        )
+
+    @tag.command()
     @commands.has_permissions(manage_messages=True)
-    async def create_tag(self, ctx: commands.Context, name: str, *, text: str) -> None:
+    async def create(self, ctx: commands.Context, name: str, *, text: str) -> None:
         """Creates a tag only for this server."""
 
         tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
@@ -33,26 +50,9 @@ class Tag(commands.Cog):
             )
         )
 
-    @commands.command(aliases=("get-tag", "display-tag", "show-tag"))
-    async def tag(self, ctx: commands.Context, name: str) -> None:
-        """Shows you a tag."""
-
-        text = await self.bot.redis_db.get(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
-        )
-
-        if not text:
-            return await ctx.reply(f"The tag with name `{name}` does not exist.")
-
-        await ctx.reply(
-            embed=disnake.Embed(
-                title=f"Tag `{name}`", description=text, color=disnake.Color.random()
-            )
-        )
-
-    @commands.command(name="delete-tag")
+    @tag.command()
     @commands.has_permissions(manage_messages=True)
-    async def delete_tag(self, ctx: commands.Context, name: str) -> None:
+    async def delete(self, ctx: commands.Context, name: str) -> None:
         await self.bot.redis_db.delete(
             f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
         )
