@@ -24,7 +24,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=disnake.Embed(
-                title=f"Tag `{name}`", description=text, color=disnake.Color.random()
+                title=f"Tag `{name}`", description=text, color=self.bot.primary_color
             )
         )
 
@@ -77,7 +77,7 @@ class Tags(commands.Cog):
             embed=disnake.Embed(
                 title=f"Tags for `{ctx.guild}`",
                 description=", ".join(tag_names),
-                color=disnake.Color.random(),
+                color=self.bot.primary_color,
             )
         )
 

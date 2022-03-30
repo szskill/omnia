@@ -1,4 +1,5 @@
 from os import listdir
+import disnake
 
 import yaml
 import aioredis
@@ -17,6 +18,7 @@ class Omnia(commands.Bot):
         self.statuses = []
         self.enabled_extensions = []
         self.redis_port = 0
+        self.primary_color = 0x000000
 
         self.redis_db: aioredis.Redis = None
         self.redis_keyspace: str = "omnia"
@@ -36,6 +38,7 @@ class Omnia(commands.Bot):
             self.statuses = config["statuses"]
             self.enabled_extensions = config["enabled-extensions"]
             self.redis_port = config["redis-port"]
+            self.primary_color = disnake.Color(int(config["primary-color"]))
 
     def _register_extensions(self) -> None:
         """Registers all extensions from `self.enabled_extensions`."""

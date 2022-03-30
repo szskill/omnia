@@ -3,17 +3,23 @@ from typing import Mapping
 import disnake
 from disnake.ext import commands
 
+from omnia.omnia import Omnia
+
 
 # Huge thanks to InterStella0! <3
 # https://gist.github.com/InterStella0/b78488fb28cadf279dfd3164b9f0cf96
 class HelpCommand(commands.HelpCommand):
+    def __init__(self, primary_color: disnake.Color) -> None:
+        super().__init__()
+        self.primary_color = primary_color
+
     def get_command_signature(self, command: commands.Command):
         return (
             f"{self.context.clean_prefix}{command.qualified_name} {command.signature}"
         )
 
     async def send_bot_help(self, mapping: Mapping[commands.Cog, commands.Command]):
-        embed = disnake.Embed(title="Help", color=disnake.Color.random())
+        embed = disnake.Embed(title="Help", color=self.primary_color)
         for cog, cmds in mapping.items():
             filtered = await self.filter_commands(cmds, sort=True)
             command_signatures = [self.get_command_signature(c) for c in filtered]
@@ -27,7 +33,7 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_command_help(self, command: commands.Command):
         embed = disnake.Embed(
-            title=self.get_command_signature(command), color=disnake.Color.random()
+            title=self.get_command_signature(command), color=self.primary_color
         )
 
         embed.add_field(name="Help", value=command.help)
@@ -44,7 +50,7 @@ class HelpCommand(commands.HelpCommand):
                 description="\n".join(
                     list(map(self.get_command_signature, group.commands))
                 ),
-                color=disnake.Color.random(),
+                color=self.primary_color,
             )
         )
 
@@ -56,6 +62,6 @@ class HelpCommand(commands.HelpCommand):
         )
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Sets the help command to be THIS `HelpCommand`."""
-    bot.help_command = HelpCommand()
+    bot.help_command = HelpCommand(bot.primary_color)
