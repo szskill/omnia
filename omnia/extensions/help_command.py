@@ -23,8 +23,7 @@ class HelpCommand(commands.HelpCommand):
                     name=cog_name, value="\n".join(command_signatures), inline=False
                 )
 
-        channel = self.get_destination()
-        await channel.send(embed=embed)
+        await self.context.reply(embed=embed)
 
     async def send_command_help(self, command: commands.Command):
         embed = disnake.Embed(
@@ -36,15 +35,25 @@ class HelpCommand(commands.HelpCommand):
         if alias:
             embed.add_field(name="Aliases", value=", ".join(alias), inline=False)
 
-        channel = self.get_destination()
-        await channel.send(embed=embed)
+        await self.context.reply(embed=embed)
+
+    async def send_group_help(self, group: commands.Group):
+        await self.context.reply(
+            embed=disnake.Embed(
+                title=group.name,
+                description="\n".join(
+                    list(map(self.get_command_signature, group.commands))
+                ),
+                color=disnake.Color.random(),
+            )
+        )
 
     async def send_error_message(self, error: str):
-        embed = disnake.Embed(
-            title="Error", description=error, color=disnake.Color.brand_red()
+        await self.context.reply(
+            disnake.Embed(
+                title="Error", description=error, color=disnake.Color.brand_red()
+            )
         )
-        channel = self.get_destination()
-        await channel.send(embed=embed)
 
 
 def setup(bot: commands.Bot) -> None:
