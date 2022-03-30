@@ -4,7 +4,7 @@ from disnake.ext import commands
 from omnia.omnia import Omnia
 
 
-class Tag(commands.Cog):
+class Tags(commands.Cog):
     """The cog for tags."""
 
     def __init__(self, bot: Omnia) -> None:
@@ -96,5 +96,5 @@ class Tag(commands.Cog):
 
 
 def setup(bot: commands.Bot) -> None:
-    """Loads the `Tag` cog."""
-    bot.add_cog(Tag(bot))
+    """Loads the `Tags` cog."""
+    bot.add_cog(Tags(bot))

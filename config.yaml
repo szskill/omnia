@@ -7,4 +7,8 @@ enabled-extensions:
   - presence
   - console
   - moderation
+  - tags
+  - tickets
+  - help_command
+  - error_handling
 redis-port: 6379
