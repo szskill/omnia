@@ -52,6 +52,8 @@ class Tags(commands.Cog):
 
     @tag.command("list")
     async def list_(self, ctx: commands.Context) -> None:
+        """Lists all of the tags in this server."""
+
         tag_names = [
             key[37:]
             for key in await self.bot.redis_db.keys(
@@ -82,6 +84,8 @@ class Tags(commands.Cog):
     @tag.command()
     @commands.has_permissions(manage_messages=True)
     async def delete(self, ctx: commands.Context, name: str) -> None:
+        """Deletes a tag."""
+
         await self.bot.redis_db.delete(
             f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
         )

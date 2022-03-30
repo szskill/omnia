@@ -23,6 +23,8 @@ class Tickets(commands.Cog):
 
     @ticket.command()
     async def create(self, ctx: commands.Context) -> None:
+        """Creates a ticket."""
+
         if ctx.author.id in self.members_with_tickets:
             return await ctx.reply("You've already opened a ticket.")
 
@@ -42,6 +44,8 @@ class Tickets(commands.Cog):
 
     @ticket.command()
     async def close(self, ctx: commands.Context) -> None:
+        """Closes a ticket."""
+
         if (
             ctx.channel.name != f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
             and not ctx.author.guild_permissions.manage_channels

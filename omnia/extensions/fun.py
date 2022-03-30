@@ -10,9 +10,12 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx: commands.Context) -> None:
+        """🏓 Pong!"""
+
         embed = disnake.Embed(
-            title=":ping_pong: Pong!",
+            title="🏓 Pong!",
             description=f"This is Omnia version {ctx.bot.version}!",
+            color=disnake.Color.random(),
         )
 
         await ctx.reply(embed=embed)
