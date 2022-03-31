@@ -67,6 +67,29 @@ class Moderation(commands.Cog):
             ),
         )
 
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
+    async def purge(self, ctx: commands.Context, limit: int) -> None:
+        """Deletes a certain amount of messages."""
+
+        # The message that triggered this command will also be counted, so we need to
+        # account for that as well
+        limit += 1
+
+        num_purged = len(await ctx.channel.purge(limit=limit))
+
+        await ctx.send(
+            embed=disnake.Embed(
+                title=f"Deleted {num_purged} messages",
+                description=(
+                    f"{ctx.author.mention}, I hope you didn't remove any important"
+                    + " messages."
+                ),
+                color=disnake.Color.brand_green(),
+            )
+        )
+
 
 def setup(bot: commands.Bot) -> None:
     """Loads the `Moderation` cog."""
