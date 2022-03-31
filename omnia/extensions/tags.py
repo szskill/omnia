@@ -43,7 +43,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=disnake.Embed(
-                title="Created Tag",
+                title="Created tag",
                 description=f"Created tag `{name}` with text `{text}`",
                 color=disnake.Color.brand_green(),
             )
@@ -91,7 +91,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=disnake.Embed(
-                title=f"Deleted Tag `{name}`",
+                title=f"Deleted tag `{name}`",
                 description="Goodbye, tag!",
                 color=disnake.Color.brand_green(),
             )
