@@ -10,7 +10,6 @@ class ErrorHandling(commands.Cog):
     """The cog that handles errors."""
 
     def __init__(self, bot: Omnia) -> None:
-        super().__init__()
         self.bot = bot
 
     @commands.Cog.listener()

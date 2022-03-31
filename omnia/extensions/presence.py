@@ -8,7 +8,6 @@ class Presence(commands.Cog):
     """The cog that sets up rich presence."""
 
     def __init__(self, bot: Omnia) -> None:
-        super().__init__()
         self.bot = bot
 
     @commands.Cog.listener()

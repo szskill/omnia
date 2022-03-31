@@ -5,9 +5,6 @@ from disnake.ext import commands
 class Moderation(commands.Cog):
     """The cog for moderation. Moderation cog. Moderational cog. Kick ban cog."""
 
-    def __init__(self) -> None:
-        super().__init__()
-
     @commands.command()
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)

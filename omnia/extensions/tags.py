@@ -8,7 +8,6 @@ class Tags(commands.Cog):
     """The cog for tags."""
 
     def __init__(self, bot: Omnia) -> None:
-        super().__init__()
         self.bot = bot
 
     @commands.group(invoke_without_command=True)

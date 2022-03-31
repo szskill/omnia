@@ -13,8 +13,6 @@ class Tickets(commands.Cog):
     """The cog for tickets."""
 
     def __init__(self) -> None:
-        super().__init__()
-
         self.members_with_tickets = []
 
     @commands.group()

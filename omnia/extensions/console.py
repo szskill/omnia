@@ -8,7 +8,6 @@ class Console(commands.Cog):
     """The cog that informs you of bot events in the console."""
 
     def __init__(self, bot: Omnia) -> None:
-        super().__init__()
         self.bot = bot
 
     @commands.Cog.listener()
