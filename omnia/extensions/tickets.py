@@ -1,4 +1,5 @@
 import hashlib
+import logging
 
 import disnake
 from disnake.ext import commands
@@ -50,7 +51,16 @@ class Tickets(commands.Cog):
         ):
             return await ctx.reply("This channel isn't yours.")
 
-        del self.members_with_tickets[self.members_with_tickets.index(ctx.author.id)]
+        try:
+            del self.members_with_tickets[
+                self.members_with_tickets.index(ctx.author.id)
+            ]
+        except KeyError:
+            logging.warn(
+                f"Could not find {ctx.author.id} in members_with_tickets. Did the bot"
+                + " restart?"
+            )
+
         await ctx.channel.delete()
 
 
