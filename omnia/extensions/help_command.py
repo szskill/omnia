@@ -3,7 +3,7 @@ from typing import Mapping
 import disnake
 from disnake.ext import commands
 
-from omnia.omnia import Omnia
+from ..omnia import Omnia
 
 
 # Huge thanks to InterStella0! <3

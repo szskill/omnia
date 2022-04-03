@@ -5,7 +5,7 @@ from os import getenv
 
 from dotenv import load_dotenv
 
-from omnia.omnia import Omnia
+from .omnia import Omnia
 
 
 def setup_logging() -> None:

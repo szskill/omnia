@@ -1,7 +1,7 @@
 import disnake
 from disnake.ext import commands
 
-from omnia.omnia import Omnia
+from ..omnia import Omnia
 
 
 class Fun(commands.Cog):
