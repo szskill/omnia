@@ -3,6 +3,7 @@ import disnake
 
 import yaml
 import aioredis
+from fakeredis import aioredis as fake_aioredis
 from disnake.ext import commands
 
 
@@ -18,6 +19,7 @@ class Omnia(commands.Bot):
         self.statuses = []
         self.enabled_extensions = []
         self.redis_port = 0
+        self.use_fake_redis = False
         self.primary_color = 0x000000
 
         self.redis_db: aioredis.Redis = None
@@ -38,6 +40,7 @@ class Omnia(commands.Bot):
             self.statuses = config["statuses"]
             self.enabled_extensions = config["enabled-extensions"]
             self.redis_port = config["redis-port"]
+            self.use_fake_redis = config["use-fake-redis"]
             self.primary_color = disnake.Color(int(config["primary-color"]))
 
     def _register_extensions(self) -> None:
@@ -51,4 +54,10 @@ class Omnia(commands.Bot):
 
     def _connect_to_databases(self) -> None:
         """Connects to the required databases."""
-        self.redis_db = aioredis.Redis(port=self.redis_port, decode_responses=True)
+
+        if self.use_fake_redis:
+            self.redis_db = fake_aioredis.FakeRedis(
+                port=self.redis_port, decode_responses=True
+            )
+        else:
+            self.redis_db = aioredis.Redis(port=self.redis_port, decode_responses=True)

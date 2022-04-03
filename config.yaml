@@ -13,4 +13,5 @@ enabled-extensions:
   - error_handling
   - miscellanous
 redis-port: 6379
+use-fake-redis: yes
 primary-color: 0x4fffaa
