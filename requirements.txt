@@ -1,6 +1,0 @@
-disnake
-pyyaml
-python-dotenv
-rich
-aioredis
-fakeredis
