@@ -21,4 +21,11 @@ if __name__ == "__main__":
     load_dotenv()
     setup_logging()
 
+    try:
+        import uvloop
+
+        uvloop.install()
+    except ImportError:
+        pass
+
     Omnia().run(getenv("TOKEN"))
