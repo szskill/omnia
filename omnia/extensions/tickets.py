@@ -5,7 +5,7 @@ import disnake
 from disnake.ext import commands
 
 
-def sha1_hash(s: str) -> None:
+def sha1_hash(s: str) -> str:
     """Returns the SHA-1 hash of a string."""
     return hashlib.sha1(s.encode()).hexdigest()
 
