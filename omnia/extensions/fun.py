@@ -16,7 +16,7 @@ class Fun(commands.Cog):
 
         embed = disnake.Embed(
             title="🏓 Pong!",
-            description=f"This is Omnia version {ctx.bot.version}!",
+            description=f"This is Omnia version {self.bot.version}!",
             color=self.bot.primary_color,
         )
 
