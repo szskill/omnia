@@ -56,7 +56,7 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_error_message(self, error: str):
         await self.context.reply(
-            disnake.Embed(
+            embed=disnake.Embed(
                 title="Error", description=error, color=disnake.Color.brand_red()
             )
         )
@@ -64,4 +64,6 @@ class HelpCommand(commands.HelpCommand):
 
 def setup(bot: Omnia) -> None:
     """Sets the help command to be THIS `HelpCommand`."""
-    bot.help_command = HelpCommand(bot.primary_color)
+
+    if isinstance(bot.primary_color, disnake.Color):
+        bot.help_command = HelpCommand(bot.primary_color)

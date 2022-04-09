@@ -23,6 +23,6 @@ class Fun(commands.Cog):
         await ctx.reply(embed=embed)
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Loads the `Fun` cog."""
     bot.add_cog(Fun(bot))

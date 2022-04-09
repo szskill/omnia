@@ -17,10 +17,13 @@ class Moderation(commands.Cog):
     ) -> None:
         """Kicks a member from a server."""
 
+        if not ctx.guild:
+            return
+
         if ctx.author == member:
-            return await ctx.reply("😔 I'm too nice to kick you.")
+            return await ctx.reply("😔 I'm too nice to kick you.")  # type: ignore
         elif member == ctx.guild.me:
-            return await ctx.reply(
+            return await ctx.reply(  # type: ignore
                 embed=disnake.Embed(
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
@@ -48,10 +51,13 @@ class Moderation(commands.Cog):
     ) -> None:
         """Bans a member from a server."""
 
+        if not ctx.guild:
+            return
+
         if ctx.author == member:
-            return await ctx.reply("😔 I'm too nice to ban you.")
+            return await ctx.reply("😔 I'm too nice to ban you.")  # type: ignore
         elif member == ctx.guild.me:
-            return await ctx.reply(
+            return await ctx.reply(  # type: ignore
                 embed=disnake.Embed(
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
@@ -72,6 +78,9 @@ class Moderation(commands.Cog):
     @commands.bot_has_permissions(manage_messages=True)
     async def purge(self, ctx: commands.Context, limit: int) -> None:
         """Deletes a certain amount of messages."""
+
+        if not isinstance(ctx.channel, disnake.TextChannel):
+            return
 
         # The message that triggered this command will also be counted, so we need to
         # account for that as well

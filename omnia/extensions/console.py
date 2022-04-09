@@ -19,6 +19,6 @@ class Console(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Loads the `Console` cog."""
     bot.add_cog(Console(bot))

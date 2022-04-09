@@ -14,12 +14,17 @@ class Tags(commands.Cog):
     async def tag(self, ctx: commands.Context, name: str) -> None:
         """Shows you a tag."""
 
+        if not ctx.guild:
+            return
+
         text = await self.bot.redis_db.get(
             f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
         )
 
         if not text:
-            return await ctx.reply(f"The tag with name `{name}` does not exist.")
+            return await ctx.reply(  # type: ignore
+                f"The tag with name `{name}` does not exist."
+            )
 
         await ctx.reply(
             embed=disnake.Embed(
@@ -32,10 +37,13 @@ class Tags(commands.Cog):
     async def create(self, ctx: commands.Context, name: str, *, text: str) -> None:
         """Creates a tag only for this server."""
 
+        if not ctx.guild:
+            return
+
         tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
 
         if tag_key in await self.bot.redis_db.keys():
-            return await ctx.reply(
+            return await ctx.reply(  # type: ignore
                 f"A tag with the name `{name}` already exists in this server."
             )
 
@@ -53,6 +61,9 @@ class Tags(commands.Cog):
     async def list_(self, ctx: commands.Context) -> None:
         """Lists all of the tags in this server."""
 
+        if not ctx.guild:
+            return
+
         tag_names = [
             key[37:]
             for key in await self.bot.redis_db.keys(
@@ -61,7 +72,7 @@ class Tags(commands.Cog):
         ]
 
         if not tag_names:
-            return await ctx.reply(
+            return await ctx.reply(  # type: ignore
                 embed=disnake.Embed(
                     title="This server has no tags",
                     description=(
@@ -85,6 +96,9 @@ class Tags(commands.Cog):
     async def delete(self, ctx: commands.Context, name: str) -> None:
         """Deletes a tag."""
 
+        if not ctx.guild:
+            return
+
         await self.bot.redis_db.delete(
             f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
         )
@@ -98,6 +112,6 @@ class Tags(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Loads the `Tags` cog."""
     bot.add_cog(Tags(bot))

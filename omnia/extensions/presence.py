@@ -18,6 +18,6 @@ class Presence(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Loads the `Presence` cog."""
     bot.add_cog(Presence(bot))

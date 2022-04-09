@@ -22,7 +22,7 @@ class Omnia(commands.Bot):
         self.use_fake_redis = False
         self.primary_color = 0x000000
 
-        self.redis_db: aioredis.Redis = None
+        self.redis_db: aioredis.Redis = None  # type: ignore
         self.redis_keyspace: str = "omnia"
 
         self._read_from_config_file()
@@ -32,7 +32,7 @@ class Omnia(commands.Bot):
     def _read_from_config_file(self, file: str = "config.yaml") -> None:
         """Reads configuration from a `config.yaml` file."""
 
-        with open(file) as file:
+        with open(file) as file:  # pyright: ignore [reportGeneralTypeIssues]
             config = yaml.load(file, yaml.FullLoader)
 
             self.command_prefix = config["prefix"]

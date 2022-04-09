@@ -35,22 +35,23 @@ class ErrorHandling(commands.Cog):
         elif isinstance(error, commands.CommandNotFound):
             return
         else:
-            logging.warn(
-                f"Unhandled error {error.__class__} on command {ctx.command.name}"
-            )
-            await self.bot.redis_db.incr(
-                f"{self.bot.redis_keyspace}.command_errors.{ctx.command.name}"
-            )
-
-            await ctx.reply(
-                embed=disnake.Embed(
-                    title="Unknown error",
-                    description=f"```\n{error}\n```",
-                    color=disnake.Color.brand_red(),
+            if ctx.command:
+                logging.warn(
+                    f"Unhandled error {error.__class__} on command {ctx.command.name}"
                 )
-            )
+                await self.bot.redis_db.incr(
+                    f"{self.bot.redis_keyspace}.command_errors.{ctx.command.name}"
+                )
+
+                await ctx.reply(
+                    embed=disnake.Embed(
+                        title="Unknown error",
+                        description=f"```\n{error}\n```",
+                        color=disnake.Color.brand_red(),
+                    )
+                )
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Loads the `ErrorHandling` cog."""
     bot.add_cog(ErrorHandling(bot))

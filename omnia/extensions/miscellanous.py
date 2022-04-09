@@ -27,6 +27,6 @@ class Miscellanous(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: Omnia) -> None:
     """Loads the `Miscellanous` cog."""
     bot.add_cog(Miscellanous(bot))
