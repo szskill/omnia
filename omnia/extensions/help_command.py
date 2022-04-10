@@ -25,9 +25,7 @@ class HelpCommand(commands.HelpCommand):
             command_signatures = [self.get_command_signature(c) for c in filtered]
             if command_signatures:
                 cog_name = getattr(cog, "qualified_name", "No Category")
-                embed.add_field(
-                    name=cog_name, value="\n".join(command_signatures), inline=False
-                )
+                embed.add_field(name=cog_name, value="\n".join(command_signatures))
 
         await self.context.reply(embed=embed)
 
@@ -39,7 +37,7 @@ class HelpCommand(commands.HelpCommand):
         embed.add_field(name="Help", value=command.help)
         alias = command.aliases
         if alias:
-            embed.add_field(name="Aliases", value=", ".join(alias), inline=False)
+            embed.add_field(name="Aliases", value=", ".join(alias))
 
         await self.context.reply(embed=embed)
 
