@@ -16,11 +16,11 @@ class Omnia(commands.Bot):
         self.case_insensitive = True
 
         self.version = ""
-        self.statuses = []
-        self.enabled_extensions = []
+        self.statuses: list[str] = []
+        self.enabled_extensions: list[str] = []
         self.redis_port = 0
         self.use_fake_redis = False
-        self.primary_color = 0x000000
+        self.primary_color = disnake.Color(0x000000)
 
         self.redis_db: aioredis.Redis = None  # type: ignore
         self.redis_keyspace: str = "omnia"
@@ -32,8 +32,8 @@ class Omnia(commands.Bot):
     def _read_from_config_file(self, file: str = "config.yaml") -> None:
         """Reads configuration from a `config.yaml` file."""
 
-        with open(file) as file:  # pyright: ignore [reportGeneralTypeIssues]
-            config = yaml.load(file, yaml.FullLoader)
+        with open(file) as handle:
+            config = yaml.load(handle, yaml.FullLoader)
 
             self.command_prefix = config["prefix"]
             self.version = config["version"]

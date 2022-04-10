@@ -14,7 +14,7 @@ class Tickets(commands.Cog):
     """The cog for tickets."""
 
     def __init__(self) -> None:
-        self.members_with_tickets = []
+        self.members_with_tickets: list[int] = []
 
     @commands.group()
     async def ticket(self, _) -> None:
