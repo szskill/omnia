@@ -19,6 +19,11 @@ class Blocklist(commands.Cog):
         if ctx.guild is None:
             return
 
+        command_name = command_name.lower()
+
+        if command_name == "unblocklist":
+            return await ctx.reply("Nah.")  # type: ignore
+
         blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
 
         if not await self.bot.redis_db.exists(blocklist_key):
