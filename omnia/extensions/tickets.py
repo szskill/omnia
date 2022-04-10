@@ -24,7 +24,7 @@ class Tickets(commands.Cog):
     async def create(self, ctx: commands.Context) -> None:
         """Creates a ticket."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         if ctx.author.id in self.members_with_tickets:

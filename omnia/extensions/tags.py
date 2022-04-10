@@ -14,7 +14,7 @@ class Tags(commands.Cog):
     async def tag(self, ctx: commands.Context, name: str) -> None:
         """Shows you a tag."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         text = await self.bot.redis_db.get(
@@ -37,7 +37,7 @@ class Tags(commands.Cog):
     async def create(self, ctx: commands.Context, name: str, *, text: str) -> None:
         """Creates a tag only for this server."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
@@ -96,7 +96,7 @@ class Tags(commands.Cog):
     async def delete(self, ctx: commands.Context, name: str) -> None:
         """Deletes a tag."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         await self.bot.redis_db.delete(

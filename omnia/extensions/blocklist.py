@@ -16,7 +16,7 @@ class Blocklist(commands.Cog):
     async def blocklist(self, ctx: commands.Context, command_name: str) -> None:
         """Blocks a command from the server."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
@@ -50,7 +50,7 @@ class Blocklist(commands.Cog):
     async def unblocklist(self, ctx: commands.Context, command_name: str) -> None:
         """Unblocks a command from the server."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
@@ -82,7 +82,7 @@ class Blocklist(commands.Cog):
     async def on_message(self, message: disnake.Message) -> None:
         """Checks if a blocked command is attempting to be used."""
 
-        if not message.guild:
+        if message.guild is None:
             return
 
         blocklist = await self.bot.redis_db.smembers(

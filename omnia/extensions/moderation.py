@@ -17,7 +17,7 @@ class Moderation(commands.Cog):
     ) -> None:
         """Kicks a member from a server."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         if ctx.author == member:
@@ -51,7 +51,7 @@ class Moderation(commands.Cog):
     ) -> None:
         """Bans a member from a server."""
 
-        if not ctx.guild:
+        if ctx.guild is None:
             return
 
         if ctx.author == member:
