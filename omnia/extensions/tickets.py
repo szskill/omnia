@@ -17,8 +17,11 @@ class Tickets(commands.Cog):
         self.members_with_tickets: list[int] = []
 
     @commands.group()
-    async def ticket(self, _) -> None:
-        pass
+    async def ticket(self, ctx: commands.Context) -> None:
+        """The ticket command group."""
+
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help(ctx.command)
 
     @ticket.command()
     async def create(self, ctx: commands.Context) -> None:
