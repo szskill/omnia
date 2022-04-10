@@ -1,7 +1,7 @@
 prefix: "o::"
 version: 0.0.1
 statuses:
-  - "%help"
+  - "o::help"
 enabled-extensions:
   - fun
   - presence
