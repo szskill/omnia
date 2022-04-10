@@ -39,8 +39,8 @@ class Omnia(commands.Bot):
             self.version = config["version"]
             self.statuses = config["statuses"]
             self.enabled_extensions = config["enabled-extensions"]
-            self.redis_port = config["redis-port"]
-            self.use_fake_redis = config["use-fake-redis"]
+            self.redis_port = config["redis"]["port"]
+            self.use_fake_redis = config["redis"]["fake"]
             self.primary_color = disnake.Color(int(config["primary-color"]))
 
     def _register_extensions(self) -> None:
