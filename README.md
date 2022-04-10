@@ -17,6 +17,15 @@ git clone https://github.com/szskill/omnia
 To configure the bot, all you have to do is to modify `config.yaml`. The options
 should be self-explainable.
 
+Then, you also have to create a file named `.env`, then place your token like
+this:
+
+```
+TOKEN=InsertTokenHere
+```
+
+Of course, replace `InsertTokenHere` with your bot token.
+
 ### Running the bot
 
 From the root folder (the folder where config.yaml is stored), run this in the
