@@ -1,6 +1,6 @@
 from os import listdir
-import disnake
 
+import disnake
 import yaml
 import aioredis
 from fakeredis import aioredis as fake_aioredis
