@@ -1,5 +1,7 @@
+import random
+
 import disnake
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 
 from ..omnia import Omnia
 
@@ -10,12 +12,16 @@ class Presence(commands.Cog):
     def __init__(self, bot: Omnia) -> None:
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self) -> None:
+    @tasks.loop(seconds=30)
+    async def change_status(self) -> None:
         await self.bot.change_presence(
-            activity=disnake.Game(self.bot.statuses[0]),
+            activity=disnake.Game(random.choice(self.bot.statuses)),
             status=disnake.Status.do_not_disturb,
         )
+
+    @commands.Cog.listener()
+    async def on_ready(self) -> None:
+        self.change_status.start()
 
 
 def setup(bot: Omnia) -> None:
