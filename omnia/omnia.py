@@ -33,14 +33,14 @@ class Omnia(commands.Bot):
         """Reads configuration from a `config.yaml` file."""
 
         with open(file) as handle:
-            config = yaml.load(handle, yaml.FullLoader)
+            config: dict = yaml.load(handle, yaml.FullLoader)
 
-            self.command_prefix = config["prefix"]
-            self.version = config["version"]
+            self.command_prefix = config.get("prefix", "o::")
+            self.version = config.get("version", "0.0.1")
             self.statuses = config["statuses"]
             self.enabled_extensions = config["enabled-extensions"]
-            self.redis_port = config["redis"]["port"]
-            self.use_fake_redis = config["redis"]["fake"]
+            self.redis_port = config["redis"].get("port", 6379)
+            self.use_fake_redis = config["redis"].get("fake", True)
             self.primary_color = disnake.Color(int(config["primary-color"]))
 
     def _register_extensions(self) -> None:
