@@ -22,7 +22,8 @@ class Blocklist(commands.Cog):
         command_name = command_name.lower()
 
         if command_name == "unblocklist":
-            return await ctx.reply("Nah.")  # type: ignore
+            await ctx.reply("Nah.")
+            return
 
         blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
 
@@ -32,13 +33,14 @@ class Blocklist(commands.Cog):
         already_blocklisted = await self.bot.redis_db.smembers(blocklist_key)
 
         if command_name in already_blocklisted:
-            return await ctx.reply(  # type: ignore
+            await ctx.reply(
                 embed=disnake.Embed(
                     title="🤨 Already blocklisted!",
                     description=f"`{command_name}` is already blocklisted.",
                     color=disnake.Color.brand_red(),
                 )
             )
+            return
 
         await self.bot.redis_db.sadd(blocklist_key, command_name)
 
@@ -66,13 +68,14 @@ class Blocklist(commands.Cog):
         already_blocklisted = await self.bot.redis_db.smembers(blocklist_key)
 
         if command_name not in already_blocklisted:
-            return await ctx.reply(  # type: ignore
+            await ctx.reply(
                 embed=disnake.Embed(
                     title="🤨 Not blocklisted!",
                     description=f"`{command_name}` is not blocklisted.",
                     color=disnake.Color.brand_red(),
                 )
             )
+            return
 
         await self.bot.redis_db.srem(blocklist_key, command_name)
 
@@ -102,13 +105,14 @@ class Blocklist(commands.Cog):
             command_name = message.content.split(self.bot.command_prefix)[1].split()[0]
 
             if command_name in blocklist:
-                return await message.reply(  # type: ignore
+                await message.reply(
                     embed=disnake.Embed(
                         title="❌ Not allowed",
                         description=f"`{command_name}` is not allowed in this server.",
                         color=disnake.Color.brand_red(),
                     )
                 )
+                return
 
         await self.bot.process_commands(message)
 

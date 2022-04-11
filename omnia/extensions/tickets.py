@@ -31,7 +31,8 @@ class Tickets(commands.Cog):
             return
 
         if ctx.author.id in self.members_with_tickets:
-            return await ctx.reply("You've already opened a ticket.")  # type: ignore
+            await ctx.reply("You've already opened a ticket.")
+            return
 
         channel_name = f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
 
@@ -62,7 +63,8 @@ class Tickets(commands.Cog):
             ctx.channel.name != f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
             and not ctx.author.guild_permissions.manage_channels
         ):
-            return await ctx.reply("This channel isn't yours.")  # type: ignore
+            await ctx.reply("This channel isn't yours.")
+            return
 
         try:
             del self.members_with_tickets[

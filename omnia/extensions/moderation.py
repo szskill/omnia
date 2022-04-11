@@ -21,15 +21,17 @@ class Moderation(commands.Cog):
             return
 
         if ctx.author == member:
-            return await ctx.reply("😔 I'm too nice to kick you.")  # type: ignore
+            await ctx.reply("😔 I'm too nice to kick you.")
+            return
         elif member == ctx.guild.me:
-            return await ctx.reply(  # type: ignore
+            await ctx.reply(
                 embed=disnake.Embed(
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
                 )
             )
+            return
 
         await member.kick(reason=reason)
         await ctx.reply(
@@ -55,15 +57,17 @@ class Moderation(commands.Cog):
             return
 
         if ctx.author == member:
-            return await ctx.reply("😔 I'm too nice to ban you.")  # type: ignore
+            await ctx.reply("😔 I'm too nice to ban you.")
+            return
         elif member == ctx.guild.me:
-            return await ctx.reply(  # type: ignore
+            await ctx.reply(
                 embed=disnake.Embed(
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
                 )
             )
+            return
 
         await member.ban(reason=reason)
         await ctx.reply(

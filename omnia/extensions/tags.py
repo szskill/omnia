@@ -22,9 +22,8 @@ class Tags(commands.Cog):
         )
 
         if not text:
-            return await ctx.reply(  # type: ignore
-                f"The tag with name `{name}` does not exist."
-            )
+            await ctx.reply(f"The tag with name `{name}` does not exist.")
+            return
 
         await ctx.reply(
             embed=disnake.Embed(
@@ -43,9 +42,10 @@ class Tags(commands.Cog):
         tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
 
         if tag_key in await self.bot.redis_db.keys():
-            return await ctx.reply(  # type: ignore
+            await ctx.reply(
                 f"A tag with the name `{name}` already exists in this server."
             )
+            return
 
         await self.bot.redis_db.set(tag_key, text)
 
@@ -72,7 +72,7 @@ class Tags(commands.Cog):
         ]
 
         if not tag_names:
-            return await ctx.reply(  # type: ignore
+            await ctx.reply(
                 embed=disnake.Embed(
                     title="This server has no tags",
                     description=(
@@ -82,6 +82,7 @@ class Tags(commands.Cog):
                     color=disnake.Color.brand_red(),
                 )
             )
+            return
 
         await ctx.reply(
             embed=disnake.Embed(
