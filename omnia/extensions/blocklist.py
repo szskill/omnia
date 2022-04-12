@@ -22,7 +22,7 @@ class Blocklist(commands.Cog):
         command_name = command_name.lower()
 
         if command_name == "unblocklist":
-            await ctx.reply("Nah.")
+            await ctx.reply("`unblocklist` is simply too.. cool to get blocklisted 😎")
             return
 
         blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
