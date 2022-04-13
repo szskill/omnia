@@ -53,7 +53,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=disnake.Embed(
-                title="Created tag",
+                title="✅ Created tag",
                 description=f"Created tag `{name}` with text `{text}`",
                 color=disnake.Color.brand_green(),
             )
@@ -85,7 +85,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=disnake.Embed(
-                title=f"Tags for `{ctx.guild}`",
+                title=f"✅ Tags for `{ctx.guild}`",
                 description=", ".join(tags.keys()),
                 color=self.bot.primary_color,
             )
@@ -105,7 +105,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=disnake.Embed(
-                title=f"Deleted tag `{name}`",
+                title=f"✅ Deleted tag `{name}`",
                 description="Goodbye, tag!",
                 color=disnake.Color.brand_green(),
             )
