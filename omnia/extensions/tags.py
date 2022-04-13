@@ -17,8 +17,8 @@ class Tags(commands.Cog):
         if ctx.guild is None:
             return
 
-        text = await self.bot.redis_db.get(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
+        text = await self.bot.redis_db.hget(
+            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags", name
         )
 
         if not text:
@@ -39,15 +39,17 @@ class Tags(commands.Cog):
         if ctx.guild is None:
             return
 
-        tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
+        tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags"
 
-        if tag_key in await self.bot.redis_db.keys():
+        tags = await self.bot.redis_db.hgetall(tag_key)
+
+        if name in tags:
             await ctx.reply(
                 f"A tag with the name `{name}` already exists in this server."
             )
             return
 
-        await self.bot.redis_db.set(tag_key, text)
+        await self.bot.redis_db.hset(tag_key, name, text)
 
         await ctx.reply(
             embed=disnake.Embed(
@@ -64,14 +66,11 @@ class Tags(commands.Cog):
         if not ctx.guild:
             return
 
-        tag_names = [
-            key[37:]
-            for key in await self.bot.redis_db.keys(
-                f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.*"
-            )
-        ]
+        tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags"
 
-        if not tag_names:
+        tags: dict = await self.bot.redis_db.hgetall(tag_key)
+
+        if not tags:
             await ctx.reply(
                 embed=disnake.Embed(
                     title="This server has no tags",
@@ -87,7 +86,7 @@ class Tags(commands.Cog):
         await ctx.reply(
             embed=disnake.Embed(
                 title=f"Tags for `{ctx.guild}`",
-                description=", ".join(tag_names),
+                description=", ".join(tags.keys()),
                 color=self.bot.primary_color,
             )
         )
@@ -100,8 +99,8 @@ class Tags(commands.Cog):
         if ctx.guild is None:
             return
 
-        await self.bot.redis_db.delete(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags.{name}"
+        await self.bot.redis_db.hdel(
+            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags", name
         )
 
         await ctx.reply(
