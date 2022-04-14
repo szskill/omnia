@@ -22,7 +22,14 @@ class HelpCommand(commands.HelpCommand):
         embed = disnake.Embed(title="Help", color=self.primary_color)
         for cog, cmds in mapping.items():
             filtered = await self.filter_commands(cmds, sort=True)
+
             command_signatures = [self.get_command_signature(c) for c in filtered]
+            for c in filtered:
+                if isinstance(c, commands.Group):
+                    command_signatures.extend(
+                        [self.get_command_signature(c) for c in c.commands]
+                    )
+
             if command_signatures:
                 cog_name = getattr(cog, "qualified_name", "No Category")
                 embed.add_field(name=cog_name, value="\n".join(command_signatures))
