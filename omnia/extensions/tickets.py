@@ -4,6 +4,8 @@ import logging
 import disnake
 from disnake.ext import commands
 
+from ..fancy_embed import FancyEmbed
+
 
 def sha1_hash(s: str) -> str:
     """Returns the SHA-1 hash of a string."""
@@ -41,7 +43,7 @@ class Tickets(commands.Cog):
         self.members_with_tickets.append(ctx.author.id)
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title="Ticket created",
                 description=channel.mention,
                 color=disnake.Color.brand_green(),

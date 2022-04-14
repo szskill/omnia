@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands
 
 from ..omnia import Omnia
+from ..fancy_embed import FancyEmbed
 
 
 class MemberTags(commands.Cog):
@@ -31,7 +32,7 @@ class MemberTags(commands.Cog):
             return
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"Tag `{name}` for `{member}`",
                 description=text,
                 color=self.bot.primary_color,
@@ -55,7 +56,7 @@ class MemberTags(commands.Cog):
         )
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title="✅ Set tag",
                 description=f"Set tag `{name}` for {member.mention} with text `{text}`",
                 color=disnake.Color.brand_green(),

@@ -4,6 +4,7 @@ import disnake
 from disnake.ext import commands
 
 from ..omnia import Omnia
+from ..fancy_embed import FancyEmbed
 
 
 # Huge thanks to InterStella0! <3
@@ -19,7 +20,7 @@ class HelpCommand(commands.HelpCommand):
         )
 
     async def send_bot_help(self, mapping: Mapping[commands.Cog, commands.Command]):
-        embed = disnake.Embed(title="Help", color=self.primary_color)
+        embed = FancyEmbed(title="Help", color=self.primary_color)
         for cog, cmds in mapping.items():
             filtered = await self.filter_commands(cmds, sort=True)
 
@@ -37,7 +38,7 @@ class HelpCommand(commands.HelpCommand):
         await self.context.reply(embed=embed)
 
     async def send_command_help(self, command: commands.Command):
-        embed = disnake.Embed(
+        embed = FancyEmbed(
             title=self.get_command_signature(command), color=self.primary_color
         )
 
@@ -50,7 +51,7 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_group_help(self, group: commands.Group):
         await self.context.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=group.name,
                 description="\n".join(
                     list(map(self.get_command_signature, group.commands))
@@ -61,7 +62,7 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_error_message(self, error: str):
         await self.context.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title="Error", description=error, color=disnake.Color.brand_red()
             )
         )

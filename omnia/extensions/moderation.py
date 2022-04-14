@@ -1,6 +1,8 @@
 import disnake
 from disnake.ext import commands
 
+from ..fancy_embed import FancyEmbed
+
 
 class Moderation(commands.Cog):
     """The cog for moderation. Moderation cog. Moderational cog. Kick ban cog."""
@@ -25,7 +27,7 @@ class Moderation(commands.Cog):
             return
         elif member == ctx.guild.me:
             await ctx.reply(
-                embed=disnake.Embed(
+                embed=FancyEmbed(
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
@@ -35,7 +37,7 @@ class Moderation(commands.Cog):
 
         await member.kick(reason=reason)
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"✅ Kicked `{member}` for `{reason}`",
                 color=disnake.Color.brand_green(),
             )
@@ -61,7 +63,7 @@ class Moderation(commands.Cog):
             return
         elif member == ctx.guild.me:
             await ctx.reply(
-                embed=disnake.Embed(
+                embed=FancyEmbed(
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
@@ -71,7 +73,7 @@ class Moderation(commands.Cog):
 
         await member.ban(reason=reason)
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"✅ Banned `{member}` for `{reason}`",
                 color=disnake.Color.brand_green(),
             ),
@@ -93,7 +95,7 @@ class Moderation(commands.Cog):
         num_purged = len(await ctx.channel.purge(limit=limit))
 
         await ctx.send(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"Deleted {num_purged} messages",
                 description=(
                     f"{ctx.author.mention}, I hope you didn't remove any important"

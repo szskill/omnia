@@ -1,9 +1,9 @@
 import time
 
-import disnake
 from disnake.ext import commands
 
 from ..omnia import Omnia
+from ..fancy_embed import FancyEmbed
 
 
 class Fun(commands.Cog):
@@ -21,7 +21,7 @@ class Fun(commands.Cog):
         stop = time.time_ns()
         latency_ms = round((stop - start) / 1_000_000)
 
-        embed = disnake.Embed(
+        embed = FancyEmbed(
             title="🏓 Pong!",
             description=f"Latency: {latency_ms}ms",
             color=self.bot.primary_color,

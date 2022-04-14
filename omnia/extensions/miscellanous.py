@@ -1,7 +1,7 @@
-import disnake
 from disnake.ext import commands
 
 from ..omnia import Omnia
+from ..fancy_embed import FancyEmbed
 
 
 class Miscellanous(commands.Cog):
@@ -15,7 +15,7 @@ class Miscellanous(commands.Cog):
         """Shows you the link to the source code of Omnia."""
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title="Omnia's source code",
                 description=(
                     "Omnia is open source! Check the code out at"

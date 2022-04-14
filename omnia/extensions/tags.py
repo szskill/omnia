@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands
 
 from ..omnia import Omnia
+from ..fancy_embed import FancyEmbed
 
 
 class Tags(commands.Cog):
@@ -26,7 +27,7 @@ class Tags(commands.Cog):
             return
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"Tag `{name}`", description=text, color=self.bot.primary_color
             )
         )
@@ -52,7 +53,7 @@ class Tags(commands.Cog):
         await self.bot.redis_db.hset(tag_key, name, text)
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title="✅ Created tag",
                 description=f"Created tag `{name}` with text `{text}`",
                 color=disnake.Color.brand_green(),
@@ -72,7 +73,7 @@ class Tags(commands.Cog):
 
         if not tags:
             await ctx.reply(
-                embed=disnake.Embed(
+                embed=FancyEmbed(
                     title="This server has no tags",
                     description=(
                         f"Change that by doing `{ctx.clean_prefix}tag create <name>"
@@ -84,7 +85,7 @@ class Tags(commands.Cog):
             return
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"✅ Tags for `{ctx.guild}`",
                 description=", ".join(tags.keys()),
                 color=self.bot.primary_color,
@@ -104,7 +105,7 @@ class Tags(commands.Cog):
         )
 
         await ctx.reply(
-            embed=disnake.Embed(
+            embed=FancyEmbed(
                 title=f"✅ Deleted tag `{name}`",
                 description="Goodbye, tag!",
                 color=disnake.Color.brand_green(),
