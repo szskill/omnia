@@ -20,7 +20,7 @@ class ErrorHandling(commands.Cog):
         if isinstance(error, commands.MissingPermissions):
             await ctx.reply(
                 embed=FancyEmbed(
-                    title="Missing permissions",
+                    title="❌ Missing permissions",
                     description="You do not have permission to perform this command.",
                     color=disnake.Color.brand_red(),
                 )
@@ -28,7 +28,7 @@ class ErrorHandling(commands.Cog):
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply(
                 embed=FancyEmbed(
-                    title="Missing required argument",
+                    title="❌ Missing required argument",
                     description=f"You are missing the `{error.param.name}` argument",
                     color=disnake.Color.brand_red(),
                 )
@@ -46,7 +46,7 @@ class ErrorHandling(commands.Cog):
 
                 await ctx.reply(
                     embed=FancyEmbed(
-                        title="Unknown error",
+                        title="❌ Unknown error",
                         description=f"```\n{error}\n```",
                         color=disnake.Color.brand_red(),
                     )

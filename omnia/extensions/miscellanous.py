@@ -16,7 +16,7 @@ class Miscellanous(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
-                title="Omnia's source code",
+                title="💻 Omnia's source code",
                 description=(
                     "Omnia is open source! Check the code out at"
                     + " <https://github.com/szskill/omnia>! Feel free to contribute or"

@@ -44,7 +44,7 @@ class Tickets(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
-                title="Ticket created",
+                title="✅ Ticket created",
                 description=channel.mention,
                 color=disnake.Color.brand_green(),
             )

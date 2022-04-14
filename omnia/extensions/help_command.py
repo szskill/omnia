@@ -20,7 +20,7 @@ class HelpCommand(commands.HelpCommand):
         )
 
     async def send_bot_help(self, mapping: Mapping[commands.Cog, commands.Command]):
-        embed = FancyEmbed(title="Help", color=self.primary_color)
+        embed = FancyEmbed(title="❓ Help", color=self.primary_color)
         for cog, cmds in mapping.items():
             filtered = await self.filter_commands(cmds, sort=True)
 
