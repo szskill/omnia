@@ -60,7 +60,7 @@ class Tags(commands.Cog):
             )
         )
 
-    @tag.command("list")
+    @tag.command(name="list")
     async def list_(self, ctx: commands.Context) -> None:
         """Lists all of the tags in this server."""
 
