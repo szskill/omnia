@@ -4,7 +4,7 @@ version: 0.0.1
 statuses:
   - "o::help"
   - "o::help | Why's my prefix like that"
-  - "o::help | The quick brown fox jumped over the lazy dog"
+  - "o::help | The quick brown fox jumps over the lazy dog"
   - "o::help | ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 enabled-extensions:
