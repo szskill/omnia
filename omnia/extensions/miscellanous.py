@@ -1,7 +1,7 @@
+import disnake
 from disnake.ext import commands
 
 from ..omnia import Omnia
-from ..fancy_embed import FancyEmbed
 
 
 class Miscellanous(commands.Cog):
@@ -14,17 +14,16 @@ class Miscellanous(commands.Cog):
     async def source(self, ctx: commands.Context) -> None:
         """Shows you the link to the source code of Omnia."""
 
-        await ctx.reply(
-            embed=FancyEmbed(
-                title="💻 Omnia's source code",
-                description=(
-                    "Omnia is open source! Check the code out at"
-                    + " <https://github.com/szskill/omnia>! Feel free to contribute or"
-                    + " open issues."
-                ),
-                color=self.bot.primary_color,
+        view = disnake.ui.View()
+        view.add_item(
+            disnake.ui.Button(
+                style=disnake.ButtonStyle.link,
+                label="Repository",
+                url="https://github.com/szskill/omnia",
             )
         )
+
+        await ctx.reply("I'm open source! Check out my GitHub repository:", view=view)
 
 
 def setup(bot: Omnia) -> None:
