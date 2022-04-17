@@ -32,7 +32,13 @@ From the root folder (the folder where config.yaml is stored), run this in the
 terminal:
 
 ```sh
-python3 -m omnia
+python -m omnia
+```
+
+or for Windows users:
+
+```sh
+py -m omnia
 ```
 
 ...and wait for it to start. That's it! You're done.
