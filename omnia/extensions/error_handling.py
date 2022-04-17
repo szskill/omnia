@@ -45,7 +45,8 @@ class ErrorHandling(commands.Cog):
             return
         elif type(error) not in ERROR_TITLE_MAP.keys() and ctx.command is not None:
             logging.warn(
-                f"Unhandled error {type(error).__name__} on command {ctx.command.name}"
+                f"Unhandled error {type(error).__name__} on command {ctx.command.name}:"
+                + f" \n{error}"
             )
             await self.bot.redis_db.incr(
                 f"{self.bot.redis_keyspace}.command_errors.{ctx.command.name}"
