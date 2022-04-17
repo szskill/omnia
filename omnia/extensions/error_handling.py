@@ -63,6 +63,7 @@ class ErrorHandling(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=title,
                 description=description,
                 color=disnake.Color.brand_red(),

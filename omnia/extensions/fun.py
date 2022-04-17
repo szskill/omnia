@@ -22,6 +22,7 @@ class Fun(commands.Cog):
         latency_ms = round((stop - start) / 1_000_000)
 
         embed = FancyEmbed(
+            ctx=ctx,
             title="🏓 Pong!",
             description=f"Latency: {latency_ms}ms",
             color=self.bot.primary_color,

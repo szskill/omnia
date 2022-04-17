@@ -41,6 +41,7 @@ class Blocklist(commands.Cog):
         if command_name in already_blocklisted:
             await ctx.reply(
                 embed=FancyEmbed(
+                    ctx=ctx,
                     title="🤨 Already blocklisted!",
                     description=f"`{command_name}` is already blocklisted.",
                     color=disnake.Color.brand_red(),
@@ -52,6 +53,7 @@ class Blocklist(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title="✅ Blocklisted!",
                 description=f"`{command_name}` has been blocklisted.",
                 color=disnake.Color.brand_green(),
@@ -76,6 +78,7 @@ class Blocklist(commands.Cog):
         if command_name not in already_blocklisted:
             await ctx.reply(
                 embed=FancyEmbed(
+                    ctx=ctx,
                     title="🤨 Not blocklisted!",
                     description=f"`{command_name}` is not blocklisted.",
                     color=disnake.Color.brand_red(),
@@ -87,6 +90,7 @@ class Blocklist(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title="✅ Unblocklisted!",
                 description=f"`{command_name}` has been unblocklisted.",
                 color=disnake.Color.brand_green(),

@@ -35,6 +35,7 @@ class Moderation(commands.Cog):
         elif member == ctx.guild.me:
             await ctx.reply(
                 embed=FancyEmbed(
+                    ctx=ctx,
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
@@ -45,6 +46,7 @@ class Moderation(commands.Cog):
         await member.kick(reason=reason)
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=f"✅ Kicked `{member}`",
                 description=reason,
                 color=disnake.Color.brand_green(),
@@ -72,6 +74,7 @@ class Moderation(commands.Cog):
         elif member == ctx.guild.me:
             await ctx.reply(
                 embed=FancyEmbed(
+                    ctx=ctx,
                     title="🤨 Why?",
                     description="Do you got a problem with me?!",
                     color=disnake.Color.brand_red(),
@@ -82,6 +85,7 @@ class Moderation(commands.Cog):
         await member.ban(reason=reason)
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=f"✅ Banned `{member}`",
                 description=reason,
                 color=disnake.Color.brand_green(),
@@ -119,6 +123,7 @@ class Moderation(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=f"✅ Unbanned member with ID `{member_id}` for `{reason}`",
                 description="Welcome back!",
                 color=disnake.Color.brand_green(),
@@ -141,6 +146,7 @@ class Moderation(commands.Cog):
 
         await ctx.send(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=f"Deleted {num_purged} messages",
                 description=(
                     f"{ctx.author.mention}, I hope you didn't remove any important"

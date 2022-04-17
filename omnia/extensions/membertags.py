@@ -64,6 +64,7 @@ class MemberTags(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title="✅ Set tag",
                 description=f"Set tag `{name}` for {member.mention} with text `{text}`",
                 color=disnake.Color.brand_green(),

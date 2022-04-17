@@ -20,7 +20,7 @@ class HelpCommand(commands.HelpCommand):
         )
 
     async def send_bot_help(self, mapping: Mapping[commands.Cog, commands.Command]):
-        embed = FancyEmbed(title="❓ Help", color=self.primary_color)
+        embed = FancyEmbed(ctx=self.context, title="❓ Help", color=self.primary_color)
         for cog, cmds in mapping.items():
             filtered = await self.filter_commands(cmds, sort=True)
 
@@ -39,7 +39,9 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_command_help(self, command: commands.Command):
         embed = FancyEmbed(
-            title=self.get_command_signature(command), color=self.primary_color
+            ctx=self.context,
+            title=self.get_command_signature(command),
+            color=self.primary_color,
         )
 
         embed.add_field(name="Help", value=command.help)
@@ -52,6 +54,7 @@ class HelpCommand(commands.HelpCommand):
     async def send_group_help(self, group: commands.Group):
         await self.context.reply(
             embed=FancyEmbed(
+                ctx=self.context,
                 title=group.name,
                 description="\n".join(
                     list(map(self.get_command_signature, group.commands))
@@ -63,7 +66,10 @@ class HelpCommand(commands.HelpCommand):
     async def send_error_message(self, error: str):
         await self.context.reply(
             embed=FancyEmbed(
-                title="Error", description=error, color=disnake.Color.brand_red()
+                ctx=self.context,
+                title="Error",
+                description=error,
+                color=disnake.Color.brand_red(),
             )
         )
 

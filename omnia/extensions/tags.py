@@ -33,7 +33,10 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
-                title=f"Tag `{name}`", description=text, color=self.bot.primary_color
+                ctx=ctx,
+                title=f"Tag `{name}`",
+                description=text,
+                color=self.bot.primary_color,
             )
         )
 
@@ -59,6 +62,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title="✅ Created tag",
                 description=f"Created tag `{name}` with text `{text}`",
                 color=disnake.Color.brand_green(),
@@ -79,6 +83,7 @@ class Tags(commands.Cog):
         if not tags:
             await ctx.reply(
                 embed=FancyEmbed(
+                    ctx=ctx,
                     title="This server has no tags",
                     description=(
                         f"Change that by doing `{ctx.clean_prefix}tag create <name>"
@@ -91,6 +96,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=f"✅ Tags for `{ctx.guild}`",
                 description=", ".join(tags.keys()),
                 color=self.bot.primary_color,
@@ -109,6 +115,7 @@ class Tags(commands.Cog):
 
         await ctx.reply(
             embed=FancyEmbed(
+                ctx=ctx,
                 title=f"✅ Deleted tag `{name}`",
                 description="Goodbye, tag!",
                 color=disnake.Color.brand_green(),
