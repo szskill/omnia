@@ -33,6 +33,14 @@ class ErrorHandling(commands.Cog):
                     color=disnake.Color.brand_red(),
                 )
             )
+        elif isinstance(error, commands.MemberNotFound):
+            await ctx.reply(
+                embed=FancyEmbed(
+                    title="❌ Member not found",
+                    description="The member you specified could not be found.",
+                    color=disnake.Color.brand_red(),
+                )
+            )
         elif isinstance(error, commands.CommandNotFound):
             return
         else:
