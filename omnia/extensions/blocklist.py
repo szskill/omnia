@@ -5,6 +5,11 @@ from ..omnia import Omnia
 from ..fancy_embed import FancyEmbed
 
 
+def get_blocklist_key(bot: Omnia, guild: disnake.Guild) -> str:
+    """Returns the blocklist key for a guild."""
+    return f"{bot.redis_keyspace}.guilds.{guild.id}.blocklist"
+
+
 class Blocklist(commands.Cog):
     """The cog for managing command blocklists."""
 
@@ -26,7 +31,7 @@ class Blocklist(commands.Cog):
             await ctx.reply("`unblocklist` is simply too.. cool to get blocklisted 😎")
             return
 
-        blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
+        blocklist_key = get_blocklist_key(self.bot, ctx.guild)
 
         if not await self.bot.redis_db.exists(blocklist_key):
             await self.bot.redis_db.sadd(blocklist_key, " ")  # to initialize blocklist
@@ -61,7 +66,7 @@ class Blocklist(commands.Cog):
         if ctx.guild is None:
             return
 
-        blocklist_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.blocklist"
+        blocklist_key = get_blocklist_key(self.bot, ctx.guild)
 
         if not await self.bot.redis_db.exists(blocklist_key):
             await self.bot.redis_db.sadd(blocklist_key, " ")  # to initialize blocklist
@@ -95,7 +100,7 @@ class Blocklist(commands.Cog):
             return
 
         blocklist = await self.bot.redis_db.smembers(
-            f"{self.bot.redis_keyspace}.guilds.{message.guild.id}.blocklist"
+            get_blocklist_key(self.bot, message.guild)
         )
 
         if not blocklist:
