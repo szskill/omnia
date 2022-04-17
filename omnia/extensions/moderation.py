@@ -80,6 +80,45 @@ class Moderation(commands.Cog):
         )
 
     @commands.command()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True)
+    async def unban(
+        self,
+        ctx: commands.Context,
+        member_id: int,
+        *,
+        reason: str = "no reason",
+    ) -> None:
+        """Unbans a member from a server."""
+
+        member_snowflake = disnake.Object(member_id)
+
+        if ctx.guild is None:
+            return
+
+        if member_id == ctx.author.id:
+            await ctx.reply("You're not banned. _Yet._")
+            return
+        elif [m for m in ctx.guild.members if m.id == member_id] or not [
+            e for e in (await ctx.guild.bans()) if e.user.id == member_id
+        ]:
+            await ctx.reply("That member's not banned. Yet??? 🤔")
+            return
+        elif member_id == ctx.guild.me.id:
+            await ctx.reply("Thanks, but I'm still here.")
+            return
+
+        await ctx.guild.unban(member_snowflake, reason=reason)
+
+        await ctx.reply(
+            embed=FancyEmbed(
+                title=f"✅ Unbanned member with ID `{member_id}` for `{reason}`",
+                description="Welcome back!",
+                color=disnake.Color.brand_green(),
+            ),
+        )
+
+    @commands.command()
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     async def purge(self, ctx: commands.Context, limit: int) -> None:
