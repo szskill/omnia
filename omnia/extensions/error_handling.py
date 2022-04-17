@@ -22,7 +22,7 @@ ERROR_DESCRIPTION_MAP = {
     "MissingPermissions": "You're missing permissions to do that.",
     "BotMissingPermissions": "I'm missing permissions to do that.",
     "MissingRequiredArgument": "You're missing a required argument.",
-    "commands.BadArgument": "You gave an invalid argument.",
+    "BadArgument": "You gave an invalid argument.",
     "CheckFailure": "You failed a check.",
     "CommandOnCooldown": "That command is on cooldown.",
     "CommandInvokeError": "An error occurred while invoking the command.",
