@@ -38,7 +38,8 @@ class Moderation(commands.Cog):
         await member.kick(reason=reason)
         await ctx.reply(
             embed=FancyEmbed(
-                title=f"✅ Kicked `{member}` for `{reason}`",
+                title=f"✅ Kicked `{member}`",
+                description=reason,
                 color=disnake.Color.brand_green(),
             )
         )
@@ -74,7 +75,8 @@ class Moderation(commands.Cog):
         await member.ban(reason=reason)
         await ctx.reply(
             embed=FancyEmbed(
-                title=f"✅ Banned `{member}` for `{reason}`",
+                title=f"✅ Banned `{member}`",
+                description=reason,
                 color=disnake.Color.brand_green(),
             ),
         )
