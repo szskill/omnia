@@ -5,6 +5,11 @@ from ..omnia import Omnia
 from ..fancy_embed import FancyEmbed
 
 
+def get_membertag_key(bot: Omnia, guild: disnake.Guild, member: disnake.Member) -> str:
+    """Returns the membertag key for a member."""
+    return f"{bot.redis_keyspace}.guilds.{guild.id}.members.{member.id}.tags"
+
+
 class MemberTags(commands.Cog):
     """The cog for membertags."""
 
@@ -21,7 +26,7 @@ class MemberTags(commands.Cog):
             return
 
         text = await self.bot.redis_db.hget(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.membertags.{member.id}",
+            get_membertag_key(self.bot, ctx.guild, member),
             name,
         )
 
@@ -50,7 +55,7 @@ class MemberTags(commands.Cog):
             return
 
         await self.bot.redis_db.hset(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.membertags.{member.id}",
+            get_membertag_key(self.bot, ctx.guild, member),
             name,
             text,
         )
