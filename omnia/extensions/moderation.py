@@ -4,6 +4,13 @@ from disnake.ext import commands
 from ..fancy_embed import FancyEmbed
 
 
+async def is_banned(guild: disnake.Guild, member_id: int) -> bool:
+    """Checks if a certain member is banned."""
+
+    ban_list = await guild.bans()
+    return bool([ban for ban in ban_list if ban.user.id == member_id])
+
+
 class Moderation(commands.Cog):
     """The cog for moderation. Moderation cog. Moderational cog. Kick ban cog."""
 
@@ -101,9 +108,7 @@ class Moderation(commands.Cog):
         if member_id == ctx.author.id:
             await ctx.reply("You're not banned. _Yet._")
             return
-        elif [m for m in ctx.guild.members if m.id == member_id] or not [
-            e for e in (await ctx.guild.bans()) if e.user.id == member_id
-        ]:
+        elif not await is_banned(ctx.guild, member_id):
             await ctx.reply("That member's not banned. Yet??? 🤔")
             return
         elif member_id == ctx.guild.me.id:
@@ -129,8 +134,7 @@ class Moderation(commands.Cog):
         if not isinstance(ctx.channel, disnake.TextChannel):
             return
 
-        # The message that triggered this command will also be counted, so we need to
-        # account for that as well
+        # Account for the message that triggered this command
         limit += 1
 
         num_purged = len(await ctx.channel.purge(limit=limit))

@@ -43,7 +43,9 @@ class ErrorHandling(commands.Cog):
     ) -> None:
         if isinstance(error, commands.CommandNotFound):
             return
-        elif type(error) not in ERROR_TITLE_MAP.keys() and ctx.command is not None:
+
+        # Check if the title map doesn't have the error's name
+        if type(error) not in ERROR_TITLE_MAP.keys() and ctx.command is not None:
             logging.warn(
                 f"Unhandled error {type(error).__name__} on command {ctx.command.name}:"
                 + f" \n{error}"
@@ -52,12 +54,17 @@ class ErrorHandling(commands.Cog):
                 f"{self.bot.redis_keyspace}.command_errors.{ctx.command.name}"
             )
 
+        # Choose the title and description from ERROR_TITLE_MAP and provide default
+        # values
+        title = ERROR_TITLE_MAP.get(type(error).__name__, "❌ Unknown error")
+        description = ERROR_DESCRIPTION_MAP.get(
+            type(error).__name__, f"```\n{error}\n```"
+        )
+
         await ctx.reply(
             embed=FancyEmbed(
-                title=ERROR_TITLE_MAP.get(type(error).__name__, "❌ Unknown error"),
-                description=ERROR_DESCRIPTION_MAP.get(
-                    type(error).__name__, f"```\n{error}\n```"
-                ),
+                title=title,
+                description=description,
                 color=disnake.Color.brand_red(),
             )
         )

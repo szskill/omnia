@@ -5,6 +5,13 @@ from ..omnia import Omnia
 from ..fancy_embed import FancyEmbed
 
 
+def get_tags_key(ctx: commands.Context) -> str:
+    """Gets the tags key of a guild."""
+
+    assert ctx.guild is not None
+    return f"{ctx.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags"
+
+
 class Tags(commands.Cog):
     """The cog for tags."""
 
@@ -18,9 +25,7 @@ class Tags(commands.Cog):
         if ctx.guild is None:
             return
 
-        text = await self.bot.redis_db.hget(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags", name
-        )
+        text = await self.bot.redis_db.hget(get_tags_key(ctx), name)
 
         if not text:
             await ctx.reply(f"The tag with name `{name}` does not exist.")
@@ -40,7 +45,7 @@ class Tags(commands.Cog):
         if ctx.guild is None:
             return
 
-        tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags"
+        tag_key = get_tags_key(ctx)
 
         tags = await self.bot.redis_db.hgetall(tag_key)
 
@@ -67,7 +72,7 @@ class Tags(commands.Cog):
         if not ctx.guild:
             return
 
-        tag_key = f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags"
+        tag_key = get_tags_key(ctx)
 
         tags: dict = await self.bot.redis_db.hgetall(tag_key)
 
@@ -100,9 +105,7 @@ class Tags(commands.Cog):
         if ctx.guild is None:
             return
 
-        await self.bot.redis_db.hdel(
-            f"{self.bot.redis_keyspace}.guilds.{ctx.guild.id}.tags", name
-        )
+        await self.bot.redis_db.hdel(get_tags_key(ctx), name)
 
         await ctx.reply(
             embed=FancyEmbed(
