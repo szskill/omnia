@@ -13,8 +13,8 @@ ERROR_TITLE_MAP = {
     "BadArgument": "❌ Bad argument",
     "CheckFailure": "❌ Check failed",
     "CommandOnCooldown": "❌ Command on cooldown",
-    "CommandInvokeError": "❌ Command invoke error",
     "MemberNotFound": "❌ Member not found",
+    "CommandInvokeError": "❌ Command invoke error",
     "CommandError": "❌ Unknown error",
 }
 
@@ -25,8 +25,8 @@ ERROR_DESCRIPTION_MAP = {
     "BadArgument": "You gave an invalid argument.",
     "CheckFailure": "You failed a check.",
     "CommandOnCooldown": "That command is on cooldown.",
-    "CommandInvokeError": "An error occurred while invoking the command.",
     "MemberNotFound": "I couldn't find that member.",
+    "CommandInvokeError": "An error occurred while invoking the command.",
     "CommandError": "An unknown error occurred.",
 }
 
