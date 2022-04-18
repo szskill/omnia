@@ -155,7 +155,7 @@ class Moderation(commands.Cog):
 
         num_purged = len(await ctx.channel.purge(limit=limit))
 
-        await ctx.send(
+        reply_message = await ctx.send(
             embed=FancyEmbed(
                 ctx=ctx,
                 title=f"Deleted {num_purged} messages",
@@ -166,6 +166,8 @@ class Moderation(commands.Cog):
                 color=disnake.Color.brand_green(),
             )
         )
+
+        await reply_message.delete(delay=3)
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)
