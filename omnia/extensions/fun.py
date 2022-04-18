@@ -16,6 +16,7 @@ class Fun(commands.Cog):
     async def ping(self, ctx: commands.Context) -> None:
         """🏓 Pong!"""
 
+        # Calculate the time it took for ctx.trigger_typing to finish
         start = time.time_ns()
         await ctx.trigger_typing()
         stop = time.time_ns()

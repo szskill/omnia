@@ -25,8 +25,10 @@ class Blocklist(commands.Cog):
         if ctx.guild is None:
             return
 
+        # Make it case-insensitive
         command_name = command_name.lower()
 
+        # We don't want users being able to not control blocklists
         if command_name == "unblocklist":
             await ctx.reply("`unblocklist` is simply too.. cool to get blocklisted 😎")
             return
@@ -124,6 +126,7 @@ class Blocklist(commands.Cog):
                 )
                 return
 
+        # We have to call process_commands so the commands will be executed
         await self.bot.process_commands(message)
 
 

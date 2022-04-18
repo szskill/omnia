@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 
+from ..omnia import Omnia
 from ..fancy_embed import FancyEmbed
 
 
@@ -11,8 +12,18 @@ async def is_banned(guild: disnake.Guild, member_id: int) -> bool:
     return bool([ban for ban in ban_list if ban.user.id == member_id])
 
 
+def get_warns_key(ctx: commands.Context, member: disnake.Member) -> str:
+    """Gets the warns key for a member."""
+
+    assert ctx.guild is not None
+    return f"{ctx.bot.redis_keyspace}.guilds.{ctx.guild.id}.members.{member.id}.warns"
+
+
 class Moderation(commands.Cog):
     """The cog for moderation. Moderation cog. Moderational cog. Kick ban cog."""
+
+    def __init__(self, bot: Omnia) -> None:
+        self.bot = bot
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
@@ -156,7 +167,70 @@ class Moderation(commands.Cog):
             )
         )
 
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def warn(
+        self,
+        ctx: commands.Context,
+        member: disnake.Member,
+        *,
+        reason: str = "no reason",
+    ) -> None:
+        if ctx.guild is None:
+            return
 
-def setup(bot: commands.Bot) -> None:
+        await self.bot.redis_db.lpush(get_warns_key(ctx, member), reason)
+
+        await ctx.reply(
+            embed=FancyEmbed(
+                ctx=ctx,
+                title="✅ Warned",
+                description=f"You've warned {member.mention} for `{reason}`.",
+                color=disnake.Color.brand_green(),
+            )
+        )
+
+    @commands.command()
+    async def warns(self, ctx: commands.Context, member: disnake.Member) -> None:
+        warns = await self.bot.redis_db.lrange(get_warns_key(ctx, member), 0, -1)
+
+        if not warns:
+            await ctx.reply(
+                embed=FancyEmbed(
+                    ctx=ctx,
+                    title="🤔 No warns",
+                    description=f"{member.mention} has no warns.",
+                    color=disnake.Color.brand_green(),
+                )
+            )
+            return
+
+        await ctx.reply(
+            embed=FancyEmbed(
+                ctx=ctx,
+                title=f"Warns for {member}",
+                description=(
+                    f"This member has a total of {len(warns)} warn(s)\n\n"
+                    + "\n".join(warns)
+                ),
+                color=self.bot.primary_color,
+            )
+        )
+
+    @commands.command(name="clear-warns")
+    @commands.has_permissions(manage_guild=True)
+    async def clear_warns(self, ctx: commands.Context, member: disnake.Member) -> None:
+        await self.bot.redis_db.delete(get_warns_key(ctx, member))
+        await ctx.reply(
+            embed=FancyEmbed(
+                ctx=ctx,
+                title="✅ Cleared warns",
+                description="get out of jail ig...",
+                color=disnake.Color.brand_green(),
+            )
+        )
+
+
+def setup(bot: Omnia) -> None:
     """Loads the `Moderation` cog."""
-    bot.add_cog(Moderation())
+    bot.add_cog(Moderation(bot))
