@@ -6,6 +6,11 @@ from ..omnia import Omnia
 from ..fancy_embed import FancyEmbed
 
 
+def stutter(s: str) -> str:
+    """Stutters the first letter of a string."""
+    return s[0] + "- " + s
+
+
 class Fun(commands.Cog):
     """Cogs for fun!"""
 
@@ -30,6 +35,17 @@ class Fun(commands.Cog):
         )
 
         await ctx.reply(embed=embed)
+
+    @commands.command(aliases=["uwu"])
+    async def uwuify(self, ctx: commands.Context, *, text: str) -> None:
+        """o- omnia can awso uwuify text UwU"""
+
+        # Example:
+        #   The quick brown fox jumps over the lazy dog.
+        #   t- the quick bwown fox jumps ovew the lazy dog....
+        uwu_text = stutter(text.lower()).replace("r", "w") + "..."
+
+        await ctx.send(f"> {uwu_text}")
 
 
 def setup(bot: Omnia) -> None:
