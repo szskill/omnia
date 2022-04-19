@@ -64,6 +64,8 @@ class Moderation(commands.Cog):
             )
         )
 
+        await member.send(f"You've been kicked from `{ctx.guild.name}` for `{reason}`.")
+
     @commands.command()
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
@@ -102,6 +104,8 @@ class Moderation(commands.Cog):
                 color=disnake.Color.brand_green(),
             ),
         )
+
+        await member.send(f"You've been banned from `{ctx.guild.name}` for `{reason}`.")
 
     @commands.command()
     @commands.has_permissions(ban_members=True)
