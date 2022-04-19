@@ -1,5 +1,4 @@
 import hashlib
-import logging
 
 import disnake
 from disnake.ext import commands
@@ -12,11 +11,20 @@ def sha1_hash(s: str) -> str:
     return hashlib.sha1(s.encode()).hexdigest()
 
 
+def get_ticket_channel_name(ctx: commands.Context) -> str:
+    """Returns the name of the ticket channel."""
+    return f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
+
+
+def channel_with_name_exists(ctx: commands.Context, name: str) -> bool:
+    """Checks if a channel with the name of the ticket channel exists."""
+
+    assert ctx.guild is not None
+    return bool([channel for channel in ctx.guild.channels if channel.name == name])
+
+
 class Tickets(commands.Cog):
     """The cog for tickets."""
-
-    def __init__(self) -> None:
-        self.members_with_tickets: list[int] = []
 
     @commands.group()
     async def ticket(self, ctx: commands.Context) -> None:
@@ -32,11 +40,11 @@ class Tickets(commands.Cog):
         if ctx.guild is None:
             return
 
-        if ctx.author.id in self.members_with_tickets:
+        channel_name = get_ticket_channel_name(ctx)
+
+        if channel_with_name_exists(ctx, channel_name):
             await ctx.reply("You've already opened a ticket.")
             return
-
-        channel_name = f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
 
         channel = await ctx.guild.create_text_channel(channel_name)
         await channel.set_permissions(
@@ -48,8 +56,6 @@ class Tickets(commands.Cog):
         await channel.set_permissions(
             ctx.guild.default_role, read_messages=False, send_messages=False
         )
-
-        self.members_with_tickets.append(ctx.author.id)
 
         await ctx.reply(
             embed=FancyEmbed(
@@ -71,22 +77,11 @@ class Tickets(commands.Cog):
         ):
             return
 
-        if (
-            ctx.channel.name != f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
-            and not ctx.author.guild_permissions.manage_channels
-        ):
+        if not ctx.channel.name.startswith(
+            "ticket-"
+        ) and ctx.channel.name != get_ticket_channel_name(ctx):
             await ctx.reply("This channel isn't yours.")
             return
-
-        try:
-            del self.members_with_tickets[
-                self.members_with_tickets.index(ctx.author.id)
-            ]
-        except KeyError:
-            logging.warn(
-                f"Could not find {ctx.author.id} in members_with_tickets. Did the bot"
-                + " restart?"
-            )
 
         await ctx.channel.delete()
 
