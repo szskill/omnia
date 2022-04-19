@@ -28,7 +28,7 @@ class Fun(commands.Cog):
         start = time.time_ns()
         await ctx.trigger_typing()
         stop = time.time_ns()
-        latency_ms = round((stop - start) / 1_000_000)
+        latency_ms = (stop - start) // 1_000_000
 
         embed = FancyEmbed(
             ctx=ctx,
