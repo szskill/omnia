@@ -39,6 +39,15 @@ class Tickets(commands.Cog):
         channel_name = f"ticket-{sha1_hash(str(ctx.author.id))[:6]}"
 
         channel = await ctx.guild.create_text_channel(channel_name)
+        await channel.set_permissions(
+            ctx.author, read_messages=True, send_messages=True  # type: ignore
+        )
+        await channel.set_permissions(
+            ctx.guild.me, read_messages=True, send_messages=True
+        )
+        await channel.set_permissions(
+            ctx.guild.default_role, read_messages=False, send_messages=False
+        )
 
         self.members_with_tickets.append(ctx.author.id)
 
