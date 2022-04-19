@@ -1,3 +1,4 @@
+import string
 import time
 
 import disnake
@@ -42,6 +43,10 @@ class Fun(commands.Cog):
     @commands.command(aliases=["uwu"])
     async def uwuify(self, ctx: commands.Context, *, text: str) -> None:
         """o- omnia can awso uwuify text UwU"""
+
+        # Remove all punctuation from text
+        for punctuation in string.punctuation:
+            text = text.replace(punctuation, "")
 
         # Example:
         #   The quick brown fox jumps over the lazy dog.
