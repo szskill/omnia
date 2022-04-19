@@ -1,5 +1,6 @@
 prefix: "'"
 version: 1.0.0
+enable-jishaku: yes
 
 statuses:
   - "'help"
