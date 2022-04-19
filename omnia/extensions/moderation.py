@@ -141,7 +141,7 @@ class Moderation(commands.Cog):
             ),
         )
 
-    @commands.command()
+    @commands.command(aliases=["clear"])
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     async def purge(self, ctx: commands.Context, limit: int) -> None:
