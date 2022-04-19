@@ -45,7 +45,10 @@ class ErrorHandling(commands.Cog):
             return
 
         # Check if the title map doesn't have the error's name
-        if type(error) not in ERROR_TITLE_MAP.keys() and ctx.command is not None:
+        if (
+            type(error).__name__ not in ERROR_TITLE_MAP.keys()
+            and ctx.command is not None
+        ):
             logging.warn(
                 f"Unhandled error {type(error).__name__} on command {ctx.command.name}:"
                 + f" \n{error}"
