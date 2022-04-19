@@ -24,6 +24,7 @@ class Fun(commands.Cog):
         """🏓 Pong!"""
 
         # Calculate the time it took for ctx.trigger_typing to finish
+        # This can be any HTTP request to Discord though, not just ctx.trigger_typing.
         start = time.time_ns()
         await ctx.trigger_typing()
         stop = time.time_ns()
