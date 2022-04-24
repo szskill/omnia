@@ -1,13 +1,17 @@
+# General bot settings.
 prefix: "'"
 version: 1.0.0
 enable-jishaku: yes
 
+# The statuses that will rotate each 30 seconds (fixed as of now)
 statuses:
   - "'help"
   - "'help | Why's my prefix like that"
   - "'help | The quick brown fox jumps over the lazy dog"
   - "'help | ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+# Here are the enabled extensions!
+# You can remove/comment out the extensions you don't need.
 enabled-extensions:
   - fun
   - presence
@@ -21,8 +25,11 @@ enabled-extensions:
   - miscellanous
   - membertags
 
+# Settings for Redis. If "fake" is enabled, then every other
+# setting is ignored.
 redis:
   port: 6379
   fake: yes
 
+# The primary color to use.
 primary-color: 0x4fffaa
