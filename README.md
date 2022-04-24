@@ -32,12 +32,14 @@ From the root folder (the folder where config.yaml is stored), run this in the
 terminal:
 
 ```sh
+pip install -r requirements.txt
 python -m omnia
 ```
 
 or for Windows users:
 
 ```sh
+py -m pip install -r requirements.txt
 py -m omnia
 ```
 
