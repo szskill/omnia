@@ -1,0 +1,6 @@
+disnake >= 2.4.0
+PyYAML >= 6.0
+python-dotenv >= 0.20.0
+rich >= 12.1.0
+aioredis >= 2.0.1
+fakeredis >= 1.7.1
